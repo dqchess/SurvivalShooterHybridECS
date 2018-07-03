@@ -6,7 +6,7 @@ public class EnemyMovementSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public ComponentArray<NavMeshAgent> NavMeshAgent;
         public ComponentDataArray<Health> Health;
         public SubtractiveComponent<Dead> Dead;

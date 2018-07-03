@@ -5,7 +5,7 @@ public class EnemyAttackSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public ComponentArray<EnemyAttacker> EnemyAttacker;
         public ComponentDataArray<Health> Health;
         public ComponentArray<Animator> Animator;
@@ -13,7 +13,7 @@ public class EnemyAttackSystem : ComponentSystem
 
     public struct PlayerData
     {
-        public int Length;
+        public readonly int Length;
         public EntityArray Entity;
         public ComponentDataArray<Player> Player;
         public ComponentDataArray<Health> Health;

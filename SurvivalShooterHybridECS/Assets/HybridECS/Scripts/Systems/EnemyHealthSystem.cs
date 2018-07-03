@@ -5,7 +5,7 @@ public class EnemyHealthSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public GameObjectArray GameObject;
         public ComponentDataArray<Enemy> Enemy;
         public ComponentDataArray<Damaged> Damaged;

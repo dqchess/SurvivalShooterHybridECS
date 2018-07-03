@@ -1,12 +1,11 @@
-﻿using Unity.Collections;
-using Unity.Entities;
+﻿using Unity.Entities;
 using UnityEngine;
 
 public class PlayerTurningSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public ComponentDataArray<Player> Player;
         public GameObjectArray GameObject;
         public ComponentArray<Rigidbody> Rigidbody;

@@ -7,13 +7,13 @@ public class EnemySpawnSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public ComponentArray<EnemySpawner> Spawner;
     }
 
     public struct PlayerData
     {
-        public int Length;
+        public readonly int Length;
         public ComponentDataArray<Health> Health;
     }
 

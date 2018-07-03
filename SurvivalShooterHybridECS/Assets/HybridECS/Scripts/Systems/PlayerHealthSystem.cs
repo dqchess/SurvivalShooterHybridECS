@@ -5,7 +5,7 @@ public class PlayerHealthSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public EntityArray Entity;
         public ComponentDataArray<Player> Player;
         public ComponentDataArray<Damaged> Damaged;

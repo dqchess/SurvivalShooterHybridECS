@@ -6,7 +6,7 @@ public class PlayerInputSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public ComponentDataArray<PlayerInput> PlayerInput;
         public SubtractiveComponent<Dead> Dead;
     }

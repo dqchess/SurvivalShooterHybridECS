@@ -6,7 +6,7 @@ public class PlayerMovementSystem : ComponentSystem
 {
     public struct Data
     {
-        public int Length;
+        public readonly int Length;
         public GameObjectArray GameObject;
         public ComponentArray<Rigidbody> Rigidbody;
         [ReadOnly] public ComponentDataArray<PlayerInput> PlayerInput;
