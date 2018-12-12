@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyHealthSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public GameObjectArray GameObject;
@@ -17,10 +18,17 @@ public class EnemyHealthSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
+
+    private EntityManager entityManager;
+    
+    protected override void OnCreateManager()
+    {
+        entityManager = World.GetExistingManager<EntityManager>();
+    }
 
     protected override void OnUpdate()
     {
-        var entityManager = World.GetExistingManager<EntityManager>();
         var puc = PostUpdateCommands;
 
         for (var i = 0; i < data.Length; i++)

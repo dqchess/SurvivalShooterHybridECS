@@ -3,8 +3,9 @@ using Unity.Entities;
 using UnityEngine.AI;
 
 public class EnemyMovementSystem : ComponentSystem
-{
-    public struct Data
+{ 
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public ComponentArray<NavMeshAgent> NavMeshAgent;
@@ -12,7 +13,7 @@ public class EnemyMovementSystem : ComponentSystem
         public SubtractiveComponent<Dead> Dead;
     }
 
-    public struct PlayerData
+    private struct PlayerData
     {
         public GameObjectArray GameObject;
         [ReadOnly] public ComponentDataArray<Player> Player;
@@ -21,6 +22,7 @@ public class EnemyMovementSystem : ComponentSystem
 
     [Inject] private Data data;
     [Inject] private PlayerData playerData;
+#pragma warning restore 649
 
     protected override void OnUpdate()
     {

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerTurningSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public ComponentDataArray<Player> Player;
@@ -13,10 +14,11 @@ public class PlayerTurningSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
 
     protected override void OnUpdate()
     {
-        var camera = Camera.main;
+        var mainCamera = Camera.main;
         var mousePos = Input.mousePosition;
 
         var camRayLen = SurvivalShooterBootstrap.Settings.CamRayLen;
@@ -24,7 +26,7 @@ public class PlayerTurningSystem : ComponentSystem
 
         for (var i = 0; i < data.Length; i++)
         {
-            var camRay = camera.ScreenPointToRay(mousePos);
+            var camRay = mainCamera.ScreenPointToRay(mousePos);
             RaycastHit floorHit;
             if (Physics.Raycast(camRay, out floorHit, camRayLen, floor))
             {

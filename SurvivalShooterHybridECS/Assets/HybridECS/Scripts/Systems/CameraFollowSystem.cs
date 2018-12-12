@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraFollowSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public GameObjectArray GameObject;
@@ -12,26 +13,26 @@ public class CameraFollowSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
 
     private bool firstFrame = true;
-
     private Vector3 offset;
 
     protected override void OnUpdate()
     {
+        var mainCamera = Camera.main;
         var smoothing = SurvivalShooterBootstrap.Settings.CamSmoothing;
         var dt = Time.deltaTime;
 
-        var camera = Camera.main;
         var playerPos = data.GameObject[0].transform.position;
 
         if (firstFrame)
         {
-            offset = camera.transform.position - playerPos;
+            offset = mainCamera.transform.position - playerPos;
         }
 
         var targetCamPos = playerPos + offset;
-        camera.transform.position = Vector3.Lerp(camera.transform.position, targetCamPos, smoothing * dt);
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCamPos, smoothing * dt);
 
         firstFrame = false;
     }

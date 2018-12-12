@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMovementSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public GameObjectArray GameObject;
@@ -14,6 +15,7 @@ public class PlayerMovementSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
 
     protected override void OnUpdate()
     {

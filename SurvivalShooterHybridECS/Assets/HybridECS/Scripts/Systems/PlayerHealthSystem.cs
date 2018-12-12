@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerHealthSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public EntityArray Entity;
@@ -15,6 +16,7 @@ public class PlayerHealthSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
 
     protected override void OnUpdate()
     {

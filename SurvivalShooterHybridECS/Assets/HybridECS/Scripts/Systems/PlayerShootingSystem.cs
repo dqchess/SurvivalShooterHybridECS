@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerShootingSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public GameObjectArray GameObject;
@@ -14,7 +15,7 @@ public class PlayerShootingSystem : ComponentSystem
         public ComponentArray<Light> Light;
     }
 
-    public struct PlayerData
+    private struct PlayerData
     {
         public ComponentDataArray<Player> Player;
         public ComponentDataArray<Health> Health;
@@ -22,6 +23,7 @@ public class PlayerShootingSystem : ComponentSystem
 
     [Inject] private Data data;
     [Inject] private PlayerData playerData;
+#pragma warning restore 649
 
     private float timer;
 
@@ -41,17 +43,17 @@ public class PlayerShootingSystem : ComponentSystem
         {
             if (Input.GetButton("Fire1") && timer > timeBetweenBullets)
             {
-                Shoot(data, i);
+                Shoot(i);
             }
 
             if (timer >= timeBetweenBullets * effectsDisplayTime)
             {
-                DisableEffects(data, i);
+                DisableEffects(i);
             }
         }
     }
 
-    private void Shoot(Data data, int i)
+    private void Shoot(int i)
     {
         timer = 0f;
 
@@ -65,9 +67,11 @@ public class PlayerShootingSystem : ComponentSystem
         data.LineRenderer[i].enabled = true;
         data.LineRenderer[i].SetPosition(0, data.GameObject[i].transform.position);
 
-        var shootRay = new Ray();
-        shootRay.origin = data.GameObject[i].transform.position;
-        shootRay.direction = data.GameObject[i].transform.forward;
+        var shootRay = new Ray
+        {
+            origin = data.GameObject[i].transform.position,
+            direction = data.GameObject[i].transform.forward
+        };
 
         RaycastHit shootHit;
         if (Physics.Raycast(shootRay, out shootHit, SurvivalShooterBootstrap.Settings.GunRange,
@@ -89,7 +93,7 @@ public class PlayerShootingSystem : ComponentSystem
         }
     }
 
-    private void DisableEffects(Data data, int i)
+    private void DisableEffects(int i)
     {
         data.LineRenderer[i].enabled = false;
         data.Light[i].enabled = false;

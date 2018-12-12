@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAnimationSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public ComponentArray<Animator> Animator;
@@ -12,6 +13,7 @@ public class PlayerAnimationSystem : ComponentSystem
     }
 
     [Inject] private Data data;
+#pragma warning restore 649
 
     protected override void OnUpdate()
     {

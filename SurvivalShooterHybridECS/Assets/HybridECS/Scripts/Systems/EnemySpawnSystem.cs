@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class EnemySpawnSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public ComponentArray<EnemySpawner> Spawner;
     }
 
-    public struct PlayerData
+    private struct PlayerData
     {
         public readonly int Length;
         public ComponentDataArray<Health> Health;
@@ -19,8 +20,15 @@ public class EnemySpawnSystem : ComponentSystem
 
     [Inject] private Data data;
     [Inject] private PlayerData playerData;
+#pragma warning restore 649
 
+    private EntityManager entityManager;
     private List<float> time = new List<float>();
+
+    protected override void OnCreateManager()
+    {
+        entityManager = World.GetExistingManager<EntityManager>();
+    }
 
     protected override void OnUpdate()
     {
@@ -29,7 +37,6 @@ public class EnemySpawnSystem : ComponentSystem
             return;
         }
 
-        var entityManager = World.GetExistingManager<EntityManager>();
         var dt = Time.deltaTime;
         var startingHealth = SurvivalShooterBootstrap.Settings.StartingEnemyHealth;
 

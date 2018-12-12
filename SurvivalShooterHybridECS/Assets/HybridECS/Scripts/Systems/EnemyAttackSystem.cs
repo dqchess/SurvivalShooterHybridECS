@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyAttackSystem : ComponentSystem
 {
-    public struct Data
+#pragma warning disable 649
+    private struct Data
     {
         public readonly int Length;
         public ComponentArray<EnemyAttacker> EnemyAttacker;
@@ -11,7 +12,7 @@ public class EnemyAttackSystem : ComponentSystem
         public ComponentArray<Animator> Animator;
     }
 
-    public struct PlayerData
+    private struct PlayerData
     {
         public readonly int Length;
         public EntityArray Entity;
@@ -21,12 +22,18 @@ public class EnemyAttackSystem : ComponentSystem
 
     [Inject] private Data data;
     [Inject] private PlayerData playerData;
+#pragma warning restore 649
+
+    private EntityManager entityManager;
+
+    protected override void OnCreateManager()
+    {
+        entityManager = World.GetExistingManager<EntityManager>();
+    }
 
     protected override void OnUpdate()
     {
-        var entityManager = World.GetExistingManager<EntityManager>();
         var puc = PostUpdateCommands;
-        var dt = Time.deltaTime;
         var timeBetweenAttacks = SurvivalShooterBootstrap.Settings.TimeBetweenEnemyAttacks;
         var enemyDamage = SurvivalShooterBootstrap.Settings.EnemyAttackDamage;
 
